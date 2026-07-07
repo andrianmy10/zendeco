@@ -1,49 +1,65 @@
+"use client";
+
+import { useState } from 'react';
 import ProductCard from './ProductCard';
 
-// Dummy data (nanti kalau udah ada API, lu tinggal ganti jadi props 'products')
-const products = [
-  { id: 1, name: 'Jam Dinding Kayu Minimalis', price: 'Rp 145.000', originalPrice: 'Rp 175.000', rating: 4.9, img: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop', badge: 'Terlaris' },
-  { id: 2, name: 'Jam Plastik Putih Elegan', price: 'Rp 95.000', originalPrice: '', rating: 4.7, img: 'https://images.unsplash.com/photo-1508013861974-9f6347163ebe?q=80&w=2076&auto=format&fit=crop', badge: '' },
-  { id: 3, name: 'Dekorasi Kayu Custom HD', price: 'Rp 210.000', originalPrice: '', rating: 5.0, img: 'https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?q=80&w=2000&auto=format&fit=crop', badge: 'Bisa Custom' },
-  { id: 4, name: 'Jam Dinding Vintage Oak', price: 'Rp 185.000', originalPrice: '', rating: 4.8, img: 'https://images.unsplash.com/photo-1593361848529-61840ab360df?q=80&w=2070&auto=format&fit=crop', badge: '' },
-  { id: 5, name: 'Jam Dinding Abstrak', price: 'Rp 160.000', originalPrice: '', rating: 4.6, img: 'https://images.unsplash.com/photo-1510525091763-7140e0be2199?q=80&w=2074&auto=format&fit=crop', badge: 'Baru' },
-  { id: 6, name: 'Stiker Custom Jam Medium', price: 'Rp 75.000', originalPrice: '', rating: 4.5, img: 'https://images.unsplash.com/photo-1501162946741-4960f91cefa1?q=80&w=2070&auto=format&fit=crop', badge: 'Bisa Custom' },
-  { id: 7, name: 'Jam Meja Kayu Klasik', price: 'Rp 120.000', originalPrice: '', rating: 4.9, img: 'https://images.unsplash.com/photo-1605721911519-3df83be2517e?q=80&w=2070&auto=format&fit=crop', badge: 'Terlaris' },
-  { id: 8, name: 'Jam Dinding Industrial', price: 'Rp 175.000', originalPrice: 'Rp 200.000', rating: 4.8, img: 'https://images.unsplash.com/photo-1589129140808-65080c4a4087?q=80&w=2070&auto=format&fit=crop', badge: '' },
-];
+interface ProductGridProps {
+  products: any[];
+  cart: any[];
+  updateQty: (productId: number, delta: number) => void;
+}
 
-export default function ProductGrid() {
+export default function ProductGrid({ products, cart, updateQty }: ProductGridProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+  
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
+
+  if (products.length === 0) {
+    return (
+      <div className="w-full py-20 text-center bg-stone-50 rounded-3xl border border-dashed border-stone-300">
+        <p className="text-stone-500 font-semibold">Produk yang Anda cari tidak ditemukan.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full">
-      {/* 
-        Grid Layout:
-        - Mobile (grid-cols-2): 2 kolom, gap kecil.
-        - Desktop (lg:grid-cols-4): 4 kolom, gap besar.
-      */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {currentProducts.map((product) => {
+          // Cari tau produk ini udah dipesan berapa banyak
+          const cartItem = cart.find(c => c.product.id === product.id);
+          const cartQty = cartItem ? cartItem.qty : 0;
+
+          return (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              cartQty={cartQty}
+              updateQty={updateQty}
+            />
+          );
+        })}
       </div>
 
-      {/* Pagination (Opsional UI) */}
-      <div className="flex justify-center mt-16 gap-2">
-        {[1, 2, 3, 12].map((page, i) => (
-          <button 
-            key={i}
-            className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-              page === 1 
-              ? 'bg-[#8d6649] text-white shadow-md' 
-              : 'bg-white text-stone-600 border border-stone-200 hover:border-[#8d6649]'
-            }`}
-          >
-            {page === 12 ? '...' : page}
-          </button>
-        ))}
-        <button className="w-10 h-10 rounded-full border border-stone-200 flex items-center justify-center text-stone-600 hover:border-[#8d6649]">
-            {'>'}
-        </button>
-      </div>
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-16 gap-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button 
+              key={page} onClick={() => setCurrentPage(page)}
+              className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm transition-all ${
+                currentPage === page 
+                ? 'bg-[#2F4638] text-white shadow-md shadow-[#2F4638]/20' 
+                : 'bg-white text-stone-500 border border-stone-200 hover:border-[#B08D63] hover:text-[#B08D63]'
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

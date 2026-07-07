@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Loader2, Clock, Watch, Timer, Hourglass } from 'lucide-react';
 import { login } from '@/src/services/authServices';
 
 export default function LoginView() {
+  const router = useRouter(); // <-- 2. Inisialisasi router-nya di sini
+  
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,8 +23,11 @@ export default function LoginView() {
 
     try {
       const response = await login(username, password);
+      localStorage.setItem('userSession', JSON.stringify(response.user));
       console.log('Login Sukses:', response);
-      // TODO: Redirect ke halaman Admin/Dashboard misal pake router.push('/admin/dashboard')
+      
+      router.push('/admin/dashboard'); 
+      
     } catch (error: any) {
       setErrorMessage(error.message);
     } finally {
