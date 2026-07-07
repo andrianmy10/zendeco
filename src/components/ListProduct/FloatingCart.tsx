@@ -17,7 +17,7 @@ export default function FloatingCart({ cart, updateQty }: FloatingCartProps) {
   const handleCheckoutWA = () => {
     if (totalItems === 0) return; // Cegah checkout kalau kosong
     
-    let message = "Selamat siang kak, saya mau pesan :\n\n";
+    let message = "Halo kak, saya lihat produk yang di website kk menarik, saya mau pesan :\n\n";
     cart.forEach((item, index) => {
       message += `${index + 1}. ${item.product.name}\n   └ Jumlah: ${item.qty} pcs\n`;
     });
@@ -25,7 +25,7 @@ export default function FloatingCart({ cart, updateQty }: FloatingCartProps) {
     message += `\n*Total Tagihan: ${formattedTotal}*`;
 
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/6287778721893?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/6281323075821?text=${encodedMessage}`, '_blank');
   };
 
   return (

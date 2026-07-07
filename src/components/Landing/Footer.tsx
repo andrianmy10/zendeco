@@ -40,11 +40,11 @@ export default function Footer() {
             <h4 className="text-[#ffffff] font-bold mb-6 tracking-wider text-sm uppercase">Kontak</h4>
             <div className="flex items-start gap-3 text-sm text-[#f2dfd3]/80">
               <MapPin size={18} className="shrink-0" />
-              <p>Jl. Estetik Minimalis No. 123, Bandung, Jawa Barat</p>
+              <p>Jl. Ciawitali No.31, Citeureup, Kec. Cimahi Utara, Kota Cimahi, Jawa Barat 40512, Indonesia</p>
             </div>
             <div className="flex items-center gap-3 text-sm text-[#f2dfd3]/80">
               <MessageCircle size={18} />
-              <p>+62 812-3456-7890</p>
+              <p>+62 813-2307-5821</p>
             </div>
           </div>
           

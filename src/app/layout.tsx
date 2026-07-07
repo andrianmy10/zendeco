@@ -11,6 +11,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Zendeco - Dekorasi Estetik & Custom",
   description: "Menjual aneka jam dinding kayu, plastik, dan produk custom estetik pilihan.",
+  icons: {
+    icon: '/assets/img/favicon.png',
+  },
 };
 
 export default function RootLayout({

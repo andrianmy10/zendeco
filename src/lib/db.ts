@@ -1,13 +1,14 @@
 import mysql from 'mysql2/promise';
 
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '', 
-  database: 'zendeco',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+const db = mysql.createPool({
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASS || '',
+  database: process.env.DB_NAME || 'zendeco_db',
+  port: parseInt(process.env.DB_PORT || '3306'),
+  ssl: {
+    rejectUnauthorized: true 
+  }
 });
 
-export default pool;
+export default db;

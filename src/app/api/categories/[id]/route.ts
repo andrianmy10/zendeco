@@ -2,9 +2,11 @@ import { NextResponse } from 'next/server';
 import db from '@/src/lib/db';
 
 // UPDATE: Edit kategori
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    // FIX: Unpack params pakai await
+    const { id } = await params;
+    
     const body = await request.json();
     const { name, deskripsi } = body;
 
@@ -25,9 +27,11 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 }
 
 // DELETE: Hapus kategori
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    // FIX: Unpack params pakai await
+    const { id } = await params;
+    
     await db.query('DELETE FROM tb_categories WHERE id = ?', [id]);
     return NextResponse.json({ message: 'Kategori berhasil dihapus' }, { status: 200 });
   } catch (error: any) {

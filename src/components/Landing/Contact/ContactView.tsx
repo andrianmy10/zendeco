@@ -17,7 +17,7 @@ export default function ContactView() {
             </p>
             
             <a 
-              href="https://wa.me/6281234567890" 
+              href="https://wa.me/6281323075821" 
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-[#c08457] text-white px-8 py-4 rounded-full font-bold shadow-lg shadow-[#c08457]/30 hover:bg-stone-800 transition-all duration-300"
@@ -36,7 +36,7 @@ export default function ContactView() {
               </div>
               <div>
                 <h4 className="font-bold text-stone-900 mb-1">WhatsApp</h4>
-                <p className="text-[#c08457] font-semibold text-sm">+62 812-3456-7890</p>
+                <p className="text-[#c08457] font-semibold text-sm">+62 813-2307-5821</p>
               </div>
             </div>
 
@@ -47,7 +47,7 @@ export default function ContactView() {
               </div>
               <div>
                 <h4 className="font-bold text-stone-900 mb-1">Email</h4>
-                <p className="text-[#c08457] font-semibold text-sm">hello@zendeco.com</p>
+                <p className="text-[#c08457] font-semibold text-sm">halozendeco@gmail.com</p>
               </div>
             </div>
 
@@ -57,8 +57,8 @@ export default function ContactView() {
                 <MapPin size={22} />
               </div>
               <div>
-                <h4 className="font-bold text-stone-900 mb-1">Lokasi Studio</h4>
-                <p className="text-stone-600 text-sm">Jl. Estetik Minimalis No. 123, Bandung, Jawa Barat</p>
+                <h4 className="font-bold text-stone-900 mb-1">Lokasi</h4>
+                <p className="text-stone-600 text-sm">Jl. Ciawitali No.31, Citeureup, Kec. Cimahi Utara, Kota Cimahi, Jawa Barat 40512, Indonesia</p>
               </div>
             </div>
           </div>
